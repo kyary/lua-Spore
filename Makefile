@@ -24,6 +24,7 @@ install:
 	$(INSTALL) -m 644 -D src/Spore/Request.lua                      $(LIBDIR)/Spore/Request.lua
 	$(INSTALL) -m 644 -D src/Spore/WADL.lua                         $(LIBDIR)/Spore/WADL.lua
 	$(INSTALL) -m 644 -D src/Spore/XML.lua                          $(LIBDIR)/Spore/XML.lua
+	$(INSTALL) -m 644 -D src/Spore/Util.lua                         $(LIBDIR)/Spore/Util.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Cache.lua             $(LIBDIR)/Spore/Middleware/Cache.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/DoNotTrack.lua        $(LIBDIR)/Spore/Middleware/DoNotTrack.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Logging.lua           $(LIBDIR)/Spore/Middleware/Logging.lua
@@ -31,6 +32,7 @@ install:
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Redirection.lua       $(LIBDIR)/Spore/Middleware/Redirection.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Runtime.lua           $(LIBDIR)/Spore/Middleware/Runtime.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/UserAgent.lua         $(LIBDIR)/Spore/Middleware/UserAgent.lua
+	$(INSTALL) -m 644 -D src/Spore/Middleware/IORedirection.lua     $(LIBDIR)/Spore/Middleware/IORedirection.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/AWSs3.lua        $(LIBDIR)/Spore/Middleware/Auth/AWSs3.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/AWSv2.lua        $(LIBDIR)/Spore/Middleware/Auth/AWSv2.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/Basic.lua        $(LIBDIR)/Spore/Middleware/Auth/Basic.lua
@@ -44,6 +46,7 @@ install:
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Parameter/Default.lua $(LIBDIR)/Spore/Middleware/Parameter/Default.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Parameter/Force.lua   $(LIBDIR)/Spore/Middleware/Parameter/Force.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Proxy/Basic.lua       $(LIBDIR)/Spore/Middleware/Proxy/Basic.lua
+	$(INSTALL) -m 644 -D src/Spore/Middleware/Proxy/NonAuth.lua     $(LIBDIR)/Spore/Middleware/Proxy/NonAuth.lua
 
 uninstall:
 	rm -f $(LIBDIR)/Spore.lua
