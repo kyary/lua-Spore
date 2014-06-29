@@ -4,6 +4,7 @@
 
 local ltn12 = require('ltn12')
 local io    = require('io')
+local tconcat = require 'table'.concat
 
 _ENV = nil
 local m = {}
@@ -17,11 +18,15 @@ end
 
 function m:call (req)
 
-  local input_file, output_file
+  local input_file, output_file, tee
+
+  if self.tee then
+    tee = self.output
+  end
 
   if self.input then
     input_file = io.open(self.input, "rb")
-    local length = fsize(source)
+    local length = fsize(input_file)
     req.source = ltn12.source.file(input_file)
     req.headers['content-length'] = length
     req.headers['content-type'] = req.headers['content-type'] or 'application/x-www-form-urlencoded'
@@ -35,11 +40,18 @@ function m:call (req)
     req.sink = ltn12.sink.file(output_file)
   end
 
-  return function(res)
-      if input_file then input_file:close() end
-      if output_file then output_file:close() end
-      return res
+  return  function (res)
+    if tee then
+      local t = {}
+      ltn12.pump.all(
+        ltn12.source.file(io.open(tee, "rb")),
+        ltn12.sink.table(t),
+        ltn12.pump.step
+      )
+      res.body = tconcat(t)
     end
+    return res
+  end
 end
 
 return m
