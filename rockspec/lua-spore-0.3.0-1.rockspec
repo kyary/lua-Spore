@@ -37,6 +37,7 @@ build = {
         ['Spore.Core']                          = 'src/Spore/Core.lua',
         ['Spore.GoogleDiscovery']               = 'src/Spore/GoogleDiscovery.lua',
         ['Spore.Middleware.Auth.AWSs3']         = 'src/Spore/Middleware/Auth/AWSs3.lua',
+        ['Spore.Middleware.Auth.AWSv2']         = 'src/Spore/Middleware/Auth/AWSv2.lua',
         ['Spore.Middleware.Auth.Basic']         = 'src/Spore/Middleware/Auth/Basic.lua',
         ['Spore.Middleware.Auth.Bearer']        = 'src/Spore/Middleware/Auth/Bearer.lua',
         ['Spore.Middleware.Auth.DataPublica']   = 'src/Spore/Middleware/Auth/DataPublica.lua',
