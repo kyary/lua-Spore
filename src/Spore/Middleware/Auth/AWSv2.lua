@@ -32,7 +32,6 @@ function m:call (req)
       util.query_params_to_string(env.spore.params),
     }
     local str = util.join(parts, '\n')
-    print('str2sign:', '['.. str .. ']')
     return str
   end
 
@@ -42,15 +41,16 @@ function m:call (req)
 
   local function sign(self, req, timestamp)
     local params = req.env.spore.params
-    local query = req.env.QUERY_STRING or ''
-print(query)
-    local a = util.split(query, "=")
-    local k,v = a[1], a[2]
-print(k, v)
-    if k and v then
-      params[k] = v
+    local query_string = req.env.QUERY_STRING or ''
+
+    local querys = util.split(query_string, "&")
+    for i,query in ipairs(querys) do
+      local ary = util.split(query, '=')
+      local k,v = ary[1], ary[2]
+      if k and v then
+        params[k] = v
+      end
     end
-    params.Version = "2014-05-01"
 
     params.Timestamp = timestamp
     params.SignatureVersion = '2'
@@ -65,9 +65,9 @@ print(k, v)
 
     local payload = util.query_params_to_string(params)
     req.env.spore.payload = payload
-    -- req.source = ltn12.source.string(payload)
-    -- req.headers['content-length'] = payload:len()
-    -- req.headers['content-type'] = req.headers['content-type'] or 'application/x-www-form-urlencoded'
+    req.source = ltn12.source.string(payload)
+    req.headers['content-length'] = payload:len()
+    req.headers['content-type'] = req.headers['content-type'] or 'application/x-www-form-urlencoded'
   end
 
   local env = req.env

@@ -99,38 +99,49 @@ local function request (req)
     local prot = protocol[spore.url_scheme]
     assert(prot, "not protocol " .. spore.url_scheme)
 
-    local form_data = spore.form_data
-    if form_data then
+    if not req.source then
+      local form_data = spore.form_data
+      if form_data then
         local content, boundary = _form_data(form_data)
         req.source = ltn12.source.string(content)
         req.headers['content-length'] = content:len()
         req.headers['content-type'] = 'multipart/form-data; boundary=' .. boundary
-    end
+      end
 
-    local payload = spore.payload
-    if payload then
+      local payload = spore.payload
+      if payload then
         req.source = ltn12.source.string(payload)
         req.headers['content-length'] = payload:len()
         req.headers['content-type'] = req.headers['content-type'] or 'application/x-www-form-urlencoded'
+      end
+    end
+
+    local t = {}
+    if not req.sink then
+        req.sink = ltn12.sink.table(t)
     end
 
     if req.method == 'POST' and not req.headers['content-length'] then
         req.headers['content-length'] = 0
     end
 
-    local t = {}
-    req.sink = ltn12.sink.table(t)
-
     if spore.debug then
-        spore.debug:write(req.method, " ", req.url, "\n")
+        spore.debug:write("METHOD: " .. req.method, "\n")
+        spore.debug:write("URL: " .. req.url, "\n")
+        spore.debug:write("HEADERS: \n")
         for k, v in pairs(req.headers or {}) do
             spore.debug:write(k, ": ", v, "\n")
+        end
+        if payload then
+          spore.debug:write("BODY\n")
+          spore.debug:write(payload:sub(1, 100), " ... \n")
         end
     end
     local r, status, headers, line = prot.request(req)
     if spore.debug then
         spore.debug:write(line or status, "\n")
     end
+
     return {
         request = req,
         status = status,
