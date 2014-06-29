@@ -19,11 +19,11 @@ require 'Spore.Request'.finalize = function (self)
     self.url = 'http://' .. self.env.SERVER_NAME .. ':9999/restapi/show?' .. self.env.QUERY_STRING
 end -- mock
 
-if not require_ok 'Spore.Middleware.Auth.AWS' then
-    skip_rest "no Spore.Middleware.Auth.AWS"
+if not require_ok 'Spore.Middleware.Auth.AWSs3' then
+    skip_rest "no Spore.Middleware.Auth.AWSs3"
     os.exit()
 end
-local mw = require 'Spore.Middleware.Auth.AWS'
+local mw = require 'Spore.Middleware.Auth.AWSs3'
 
 local req = require 'Spore.Request'.new({
     SERVER_NAME = 'services.org',

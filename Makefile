@@ -31,7 +31,7 @@ install:
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Redirection.lua       $(LIBDIR)/Spore/Middleware/Redirection.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Runtime.lua           $(LIBDIR)/Spore/Middleware/Runtime.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/UserAgent.lua         $(LIBDIR)/Spore/Middleware/UserAgent.lua
-	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/AWS.lua          $(LIBDIR)/Spore/Middleware/Auth/AWS.lua
+	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/AWSs3.lua        $(LIBDIR)/Spore/Middleware/Auth/AWSs3.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/Basic.lua        $(LIBDIR)/Spore/Middleware/Auth/Basic.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/Bearer.lua       $(LIBDIR)/Spore/Middleware/Auth/Bearer.lua
 	$(INSTALL) -m 644 -D src/Spore/Middleware/Auth/DataPublica.lua  $(LIBDIR)/Spore/Middleware/Auth/DataPublica.lua
